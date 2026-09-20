@@ -579,7 +579,7 @@ if __name__ == "__main__":
     try:
         bot.infinity_polling(skip_pending=True)
     finally:
-        scheduler.shutdown(wait=False)"""100x SSC CGL AI Mentor powered by Google Gemini."""
+        scheduler.shutdown(wait=False)
 
 import html
 import logging
