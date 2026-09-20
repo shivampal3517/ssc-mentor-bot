@@ -29,7 +29,7 @@ def required_env(name: str) -> str:
 
 TELEGRAM_BOT_TOKEN = required_env("TELEGRAM_BOT_TOKEN")
 GEMINI_API_KEY = required_env("GEMINI_API_KEY")
-GEMINI_MODEL = "gemini-2.0-flash"
+GEMINI_MODEL = "gemini-3.6-flash"
 DATABASE_PATH = os.getenv("DATABASE_PATH", "ssc_mentor.db")
 BOT_TIMEZONE_NAME = os.getenv("BOT_TIMEZONE", "Asia/Kolkata")
 MAX_MEMORY_MESSAGES = 8
