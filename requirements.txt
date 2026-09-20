@@ -1,3 +1,4 @@
 pyTelegramBotAPI
 google-genai
-Pillow
+pillow
+apscheduler
