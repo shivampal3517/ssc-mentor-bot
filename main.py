@@ -1,3 +1,5 @@
+import threading
+from http.server import HTTPServer, BaseHTTPRequestHandler
 import html
 import logging
 import os
@@ -525,7 +527,27 @@ def handle_text(message: telebot.types.Message) -> None:
         logger.exception("Text Gemini request failed")
         bot.reply_to(message, f"REAL TIME ERROR: {exc!r}")
 
+class DummyServer(BaseHTTPRequestHandler):
+    def do_GET(self):
+        self.send_response(200)
+        self.end_headers()
+        self.wfile.write(b"Bot is alive!")
+
+def keep_alive():
+    port = int(os.environ.get("PORT", 8080))
+    server = HTTPServer(("0.0.0.0", port), DummyServer)
+    server.serve_forever()
+
 if __name__ == "__main__":
+    # Render ke free web service ke liye background port server
+    threading.Thread(target=keep_alive, daemon=True).start()
+    
+    logger.info("Starting Telegram bot with Gemini model %s", GEMINI_MODEL)
+    scheduler = start_scheduler()
+    try:
+        bot.infinity_polling(skip_pending=True)
+    finally:
+        scheduler.shutdown(wait=False)
     logger.info("Starting Telegram bot with Gemini model %s", GEMINI_MODEL)
     scheduler = start_scheduler()
     try:
